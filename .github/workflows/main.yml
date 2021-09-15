@@ -52,8 +52,10 @@ jobs:
           file: ./Dockerfile
           platforms: linux/amd64
           push: true
-          tags: ${{ steps.docker_meta.outputs.tags }}
-          labels: ${{ steps.docker_meta.outputs.labels }}
+#           tags: ${{ steps.docker_meta.outputs.tags }}
+#           labels: ${{ steps.docker_meta.outputs.labels }}
+          tags: "1.1"
+          labels: "testtest"
       # Runs a single command using the runners shell
 #       - 
 #         name: Run a one-line script
