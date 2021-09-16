@@ -27,14 +27,14 @@ jobs:
       - 
         name: Checkout
         uses: actions/checkout@v2
-      - 
-        name: Docker meta
-        id: docker_meta
-        uses: crazy-max/ghaction-docker-meta@v1
-        with:
-          images: ewan/test
-          tag-semver: |
-            1.1
+#       - 
+#         name: Docker meta
+#         id: docker_meta
+#         uses: crazy-max/ghaction-docker-meta@v1
+#         with:
+#           images: ewan/test
+#           tag-semver: |
+#             1.1
       -
         name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
@@ -45,19 +45,21 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       -
-        name: Build and push        
+        name: Build and push
         uses: docker/build-push-action@v2
         with:
           context: .
           file: ./Dockerfile
           platforms: linux/amd64
-          push: true
+          builder: ${{ steps.buildx.outputs.name }}
+          push: ${{ github.event_name != 'pull_request' }}
 #           tags: ${{ steps.docker_meta.outputs.tags }}
 #           labels: ${{ steps.docker_meta.outputs.labels }}
-          tags: chl8263/app:latest
+          tags: ${{ env.DOCKER_IMAGE }}:${{ env.VERSION }}
           run: |
             echo !!!!!!!!!!
             echo ${{ steps.docker_meta.outputs.tags }}
+            echo ${{ env.DOCKER_IMAGE }}:${{ env.VERSION }}
             echo !!!!!!!!!!
           #labels: "testtest"
       # Runs a single command using the runners shell
