@@ -54,7 +54,7 @@ jobs:
 #           tags: ${{ steps.docker_meta.outputs.tags }}
 #           labels: ${{ steps.docker_meta.outputs.labels }}
 #          tags: ${{ steps.docker_meta.outputs.tags }}
-          tags: ewan/app
+          tags: ewan/app:1.1
           run: |
             echo !!!!!!!!!!
             echo ${{ steps.docker_meta.outputs.tags }}
