@@ -31,9 +31,10 @@ jobs:
         id: docker_meta
         uses: crazy-max/ghaction-docker-meta@v1
         with:
-          images: ewan/test
+          images: chl8263/testApp
           tag-semver: |
-            1.1
+            {{version}}
+            {{major}}.{{minor}}
       -
         name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
@@ -54,7 +55,7 @@ jobs:
 #           tags: ${{ steps.docker_meta.outputs.tags }}
 #           labels: ${{ steps.docker_meta.outputs.labels }}
 #          tags: ${{ steps.docker_meta.outputs.tags }}
-          tags: ewan/app:1.1
+          tags: ${{ steps.docker_meta.outputs.tags }}
           run: |
             echo !!!!!!!!!!
             echo ${{ steps.docker_meta.outputs.tags }}
